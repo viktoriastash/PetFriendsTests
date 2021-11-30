@@ -128,30 +128,49 @@ def test_add_new_pet_without_photo_invalid_datatype(name="Лапуля", animal_
         status, result = pf.add_new_pet_without_photo_invalid_datatype(auth_key, name, animal_type, age)
         assert status == 400  # тест упал, код 200, питомец успешно создается
 
-def test_add_new_pet_without_photo_long_name(name="ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧОпЛОЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО"
-                                                  "ЛОрлПРЧООЯспорвмпыолрвпморподрпоОРПодрпчорпяддоряпдояпдочпчяО",
-                                             animal_type="пикинес", age="5"):
-    # Проверка возможности создания питомца с длинным именем, 1001 буквы
+def test_add_new_pet_with_large_parametr_name(name='вфаывыпрволываолрджоправожлдэлорпавыпролждэлокуешщгждюолбьтимьтбжгдшншеукуцкегшжлдюобпавпыаффывапролждэжшгенекуецкушщгжолдрпавыавфвапролднгнеекушгдплрптавыафвпролднекуецкеншгдлропавыафвфапролдрпавапвралдпоавыфывапрдлорпоавпыафываролдрлпоавпыапрооапрпопавпа'
+                                     , animal_type='',age=''):
+    """Проверяем можно ли добавить питомца c большим значением в параметре name"""
 
+       # Запрашиваем api-ключ и сохраняем в переменую auth_key
     _, auth_key = pf.get_api_key(valid_email, valid_password)
-    status, result = pf.add_new_pet_without_photo(auth_key, name, animal_type, age)
-    assert status == 200
-    assert result["name"] == name
 
+    # Добавляем питомца
+    status, result = pf.add_new_pet_simple(auth_key, name, animal_type, age)
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 200
+    assert result['name'] == name
+def test_add_new_pet_with_large_parametr_type(name=''
+                                     , animal_type='вфаывыпрволываолрджоправожлдэлорпавыпролждэлокуешщгждюолбьтимьтбжгдшншеукуцкегшжлдюобпавпыаффывапролждэжшгенекуецкушщгжолдрпавыавфвапролднгнеекушгдплрптавыафвпролднекуецкеншгдлропавыафвфапролдрпавапвралдпоавыфывапрдлорпоавпыафываролдрлпоавпыапрооапрпопавпа'
+                                     ,age=''):
+    """Проверяем можно ли добавить питомца c большим значением в параметре animal_type"""
+
+       # Запрашиваем ключ api и сохраняем в переменую auth_key
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+
+    # Добавляем питомца
+    status, result = pf.add_new_pet_simple(auth_key, name, animal_type, age)
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 200
+    assert result['name'] == name
+def test_add_new_pet_with_large_parametr_age(name=''
+                                     , animal_type=''
+                                     ,age='вфаывыпрволываолрджоправожлдэлорпавыпролждэлокуешщгждюолбьтимьтбжгдшншеукуцкегшжлдюобпавпыаффывапролждэжшгенекуецкушщгжолдрпавыавфвапролднгнеекушгдплрптавыафвпролднекуецкеншгдлропавыафвфапролдрпавапвралдпоавыфывапрдлорпоавпыафываролдрлпоавпыапрооапрпопавпа'):
+    """Проверяем можно ли добавить питомца c большим значением в параметре age"""
+
+       # Запрашиваем api-ключ и сохраняем в переменую auth_key
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+
+    # Добавляем питомца
+    status, result = pf.add_new_pet_simple(auth_key, name, animal_type, age)
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 200
+    assert result['name'] == name
+    result['age'] = age.isdigit()
+    assert age.isdigit() == True
 def test_add_new_pet_with_invalid_name(name="@@@%%%$$$", animal_type="Собака", age="3",
                                            pet_photo="images/taksa.jfif"):
         # Проверка возможности создания питомца с именем, состоящим только из спецсимволов
@@ -160,6 +179,35 @@ def test_add_new_pet_with_invalid_name(name="@@@%%%$$$", animal_type="Собак
         status, result = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
         assert status == 400  # тест падает, код 200, питомец успешно создается
         assert result["name"] == name
+
+def test_add_new_pet_without_photo_noncorrect(name='Гена', animal_type='крокодил',
+                                     age='Сто'):
+    """Проверяем можно ли добавить питомца с некорректными данными"""
+
+       # Запрашиваем api-ключ и сохраняем в переменую auth_key
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+
+    # Добавляем питомца
+    status, result = pf.add_new_pet_simple(auth_key, name, animal_type, age)
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 200
+    assert result['name'] == name
+    result['age'] = age.isdigit()
+    assert age.isdigit() == False
+def test_add_new_pet_without_parrametrs(name='', animal_type='',
+                                     age=''):
+    """Проверяем, можно ли добавить питомца с пустыми параметрами"""
+
+       # Запрашиваем api-ключ и сохраняем в переменую auth_key
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+
+    # Добавляем питомца
+    status, result = pf.add_new_pet_simple(auth_key, name, animal_type, age)
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 200
+    assert result['name'] == name
 
 def test_add_new_pet_with_valid_data_empty_key(name="Ричард", animal_type="собака", age="2",
                                                pet_photo="images/1.jfif"):
