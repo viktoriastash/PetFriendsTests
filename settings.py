@@ -1,5 +1,5 @@
-valid_email = "viktoriastash@gmail.com"
-valid_password = "blessedhome19"
+valid_email = "___@gmail.com"
+valid_password = "___"
 
 empty_email = ""
 empty_password = ""
